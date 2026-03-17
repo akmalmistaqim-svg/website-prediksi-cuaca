@@ -6,11 +6,11 @@
   <title>Prediksi Cuaca - CuacaKu</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <style type="text/tailwindcss">
-    html { scroll-behavior: smooth; }
-    @source inline("bg-sky-100 bg-sky-400 border-sky-200 border-sky-500 text-sky-100");
+    html { scroll-behavior: smooth; } /* Scroll halus */
 
-    .hasil { display: none; }
-    .hasil.tampil { display: block; }
+    .hasil { display: none; }   /* hasil di sembunyikan */
+    .hasil.tampil { display: block; } /* ditampilkan saat aktif */
+    /* Animasi muncul dari bawah */
     @keyframes munculAtas {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -18,10 +18,6 @@
     .animasi-muncul {
       animation: munculAtas 0.5s ease forwards;
     }
-  </style>
-  <!-- Fallback: pastikan background muncul di semua browser HP -->
-  <style>
-    body { background-color: #e0f2fe; }
   </style>
 </head>
 
@@ -32,8 +28,7 @@
     <h1 class="text-3xl sm:text-4xl font-bold mt-4 mb-2">Cek Prediksi Cuaca</h1>
     <p class="text-blue-100 text-base max-w-md mx-auto">Masukkan daerah dan tanggal untuk melihat hasil prediksi</p>
   </div>
-
-  <!-- form input -->
+  <!--form input -->
   <div class="max-w-xl mx-auto px-6 py-10">
     <div class="bg-white rounded-2xl shadow-sm border border-sky-200 p-8">
 
@@ -44,7 +39,8 @@
           📍 Daerah / Kota
         </label>
         <select id="inputDaerah"
-          class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          class="w-full px-4 py-2.5 text-sm border border-gray-200
+           rounded-xl bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
           <option value="">-- Pilih Daerah --</option>
           <option value="Magetan">Magetan</option>
           <option value="Madiun">Madiun</option>
@@ -58,7 +54,7 @@
           <option value="Mojokerto">Mojokerto</option>
           <option value="Jember">Jember</option>
           <option value="Banyuwangi">Banyuwangi</option>
-        </select>
+      </select>
       </div>
 
       <div class="mb-6">
@@ -66,12 +62,14 @@
           📅 Tanggal Prediksi
         </label>
         <input type="date" id="inputTanggal"
-          class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl
+           text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400" />
       </div>
 
       <!-- tombol submit -->
       <button onclick="cekPrediksi()"
-        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white
+         font-semibold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
         Hasilnya
         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -138,6 +136,8 @@
   </div>
 
   <footer class="bg-sky-400 border-t border-sky-500 py-8 px-6 text-center">
+    <div class="flex items-center justify-center gap-2 mb-2">
+    </div>
     <p class="text-sm text-sky-100">© 2026 CuacaKu. Sistem Prediksi Cuaca Jawa Timur.</p>
   </footer>
 
@@ -158,40 +158,47 @@
       Banyuwangi: { suhu: 31, kondisi: "Cerah",            emoji: "☀️", rasa: 34, lembab: 61, angin: 22, hujan: 6,  uv: 9,  rekomendasi: "Cuaca cerah dan panas dengan angin kencang. Cocok untuk surfing dan wisata alam. Gunakan tabir surya dan topi pelindung." }
     };
 
+    /* array nama hari dan bulan */
     var namaHari  = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
     var namaBulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
 
+    /* format tanggal */
     function formatTanggal(tanggalStr) {
       var d = new Date(tanggalStr);
-      return namaHari[d.getDay()] + ", " + d.getDate() + " " + namaBulan[d.getMonth()] + " " + d.getFullYear();
+      return namaHari[d.getDay()] + ", " + d.getDate()
+       + " " + namaBulan[d.getMonth()] + " " + d.getFullYear();
     }
 
+    /* ambil input user */
     function cekPrediksi() {
       var daerah  = document.getElementById('inputDaerah').value;
       var tanggal = document.getElementById('inputTanggal').value;
       var error   = document.getElementById('pesanError');
 
+      /* validasi (kalo kosong) */
       if (daerah === '' || tanggal === '') {
         error.classList.remove('hidden');
         return;
       }
-      error.classList.add('hidden');
+      error.classList.add('hidden'); /* sembunyikan error */
 
-      var cuaca = dataCuaca[daerah];
+      var cuaca = dataCuaca[daerah]; /* ambil data cuaca berdasarkan daerah */
 
-      document.getElementById('hasilLokasi').textContent      = '📍 ' + daerah + ', Jawa Timur';
-      document.getElementById('hasilTanggal').textContent     = formatTanggal(tanggal);
-      document.getElementById('hasilEmoji').textContent       = cuaca.emoji;
-      document.getElementById('hasilSuhu').textContent        = cuaca.suhu + '°';
-      document.getElementById('hasilKondisi').textContent     = cuaca.kondisi;
-      document.getElementById('hasilRasa').textContent        = 'Terasa seperti ' + cuaca.rasa + '°C';
-      document.getElementById('hasilLembab').textContent      = cuaca.lembab + '%';
-      document.getElementById('hasilAngin').textContent       = cuaca.angin + ' km/j';
-      document.getElementById('hasilHujan').textContent       = cuaca.hujan + '%';
-      document.getElementById('hasilUV').textContent          = cuaca.uv;
+       /* tampilkan hasil ke html */
+
+      document.getElementById('hasilLokasi').textContent     = '📍 ' + daerah + ', Jawa Timur';
+      document.getElementById('hasilTanggal').textContent    = formatTanggal(tanggal);
+      document.getElementById('hasilEmoji').textContent      = cuaca.emoji;
+      document.getElementById('hasilSuhu').textContent       = cuaca.suhu + '°';
+      document.getElementById('hasilKondisi').textContent    = cuaca.kondisi;
+      document.getElementById('hasilRasa').textContent       = 'Terasa seperti ' + cuaca.rasa + '°C';
+      document.getElementById('hasilLembab').textContent     = cuaca.lembab + '%';
+      document.getElementById('hasilAngin').textContent      = cuaca.angin + ' km/j';
+      document.getElementById('hasilHujan').textContent      = cuaca.hujan + '%';
+      document.getElementById('hasilUV').textContent         = cuaca.uv;
       document.getElementById('hasilRekomendasi').textContent = cuaca.rekomendasi;
 
-      var card = document.getElementById('cardUtama');
+      var card = document.getElementById('cardUtama'); /* ubah warna card berdasarkan kondisi cuaca */
       if (cuaca.hujan >= 70) {
         card.className = "bg-gradient-to-br from-slate-600 to-slate-700 text-white rounded-2xl p-6 mb-4 shadow-sm";
       } else if (cuaca.suhu >= 33) {
@@ -200,10 +207,11 @@
         card.className = "bg-gradient-to-br from-blue-500 to-sky-400 text-white rounded-2xl p-6 mb-4 shadow-sm";
       }
 
-      document.getElementById('hasilPrediksi').classList.add('tampil');
-      document.getElementById('hasilPrediksi').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('hasilPrediksi').classList.add('tampil'); /* Tampilkan hasil */
+      document.getElementById('hasilPrediksi').scrollIntoView({ behavior: 'smooth', block: 'start' }); /* scroll ke hasil */
     }
 
+    /* riset */
     function cekLagi() {
       document.getElementById('hasilPrediksi').classList.remove('tampil');
       document.getElementById('inputDaerah').value  = '';
