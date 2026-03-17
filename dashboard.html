@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" /> <!-- support karakter -->
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sistem Prediksi Cuaca</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <!-- smooth scrolling -->
   <style type="text/tailwindcss">
     html { scroll-behavior: smooth; }
+    @source inline("bg-sky-200 bg-sky-300 bg-sky-400 bg-sky-500 text-sky-100 border-sky-300 border-sky-500");
+  </style>
+  <!-- Fallback: pastikan background muncul di semua browser HP -->
+  <style>
+    body { background-color: #bae6fd; }
   </style>
 </head>
 
@@ -19,12 +23,11 @@
       <!-- Logo -->
       <a href="#home" class="flex items-center gap-3">
         <img src="1f324_3d.webp" class="h-7" alt="Logo Cuaca" />
-        <span class="text-xl text-gray-900 font-semibold whitespace-nowrap"> Selamat Datang di Website Prediksi Cuaca</span>
+        <span class="text-xl text-gray-900 font-semibold whitespace-nowrap">Website Prediksi Cuaca</span>
       </a>
 
       <div>
         <ul class="flex flex-row font-medium gap-8">
-          <!-- href #home = scroll ke section home-->
           <li><a href="#home"    class="text-gray-700 hover:text-blue-600 transition-colors">Home</a></li>
           <li><a href="#tentang" class="text-gray-700 hover:text-blue-600 transition-colors">Tentang</a></li>
           <li><a href="#kontak"  class="text-gray-700 hover:text-blue-600 transition-colors">Kontak</a></li>
@@ -43,7 +46,6 @@
     <p class="text-blue-100 text-lg mb-10 max-w-xl mx-auto">
       Informasi cuaca akurat dan cepat untuk wilayah Jawa Timur
     </p>
-    <!-- Tombol untuk mengarahkan ke halaman cuaca.html-->
     <a href="cuaca.html"
        class="bg-white text-blue-600 font-semibold px-8 py-3 rounded-xl hover:bg-blue-50 inline-flex items-center justify-center gap-2">
       Cek Prediksi Cuaca
@@ -101,7 +103,7 @@
           <p class="text-blue-500 text-sm mt-2">Sistem prediksi cuaca terbaik untuk wilayah Jawa Timur</p>
         </div>
       </div>
-      
+
     </div>
   </section>
 
@@ -159,8 +161,6 @@
   </section>
 
   <footer class="bg-sky-400 border-t border-sky-500 py-8 px-6 text-center">
-    <div class="flex items-center justify-center gap-2 mb-2">
-    </div>
     <p class="text-sm text-sky-100">© 2026 CuacaKu. Sistem Prediksi Cuaca Jawa Timur.</p>
   </footer>
 
